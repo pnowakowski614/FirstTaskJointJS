@@ -1,3 +1,4 @@
+const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 const namespace = joint.shapes;
 
 const graph = new joint.dia.Graph({}, { cellNamespace: namespace });
@@ -14,10 +15,8 @@ const paper = new joint.dia.Paper({
     cellViewNamespace: namespace
 });
 
-paper.translate(150, 20);
-
 const rect = new joint.shapes.standard.Rectangle();
-rect.position(90, 250);
+rect.position(240, 270);
 rect.resize(120, 100);
 rect.attr({
     body: {
@@ -33,7 +32,7 @@ rect.attr({
 rect.addTo(graph);
 
 const circle = new joint.shapes.standard.Circle();
-circle.position(300, 250);
+circle.position(450, 270);
 circle.resize(100, 100);
 circle.attr({
     body: {
@@ -49,7 +48,7 @@ circle.attr({
 circle.addTo(graph);
 
 const ellipse = new joint.shapes.standard.Ellipse();
-ellipse.position(480, 250);
+ellipse.position(630, 270);
 ellipse.resize(200, 100);
 ellipse.attr({
     body: {
@@ -65,7 +64,7 @@ ellipse.attr({
 ellipse.addTo(graph);
 
 const polygon = new joint.shapes.standard.Polygon();
-polygon.position(780, 250);
+polygon.position(930, 270);
 polygon.resize(100, 100);
 polygon.attr({
     body: {
@@ -80,4 +79,20 @@ polygon.attr({
 });
 polygon.addTo(graph);
 
+paper.on('element:background-change', (elementView) => {
+   elementView.model.attr('body/fill', randomColor);
+});
+ 
+paper.on('element:label-change', (elementView) => {
+   elementView.model.attr('label/fill', randomColor);
+});
+ 
+paper.on('element:resize', (elementView) => {
+   elementView.model.resize(150, 150);
+});
+ 
+paper.on('element:stroke-change', (elementView) => {
+   elementView.model.attr('body/stroke', randomColor);
+   elementView.model.attr('body/strokeWidth', 8);
+});
 
